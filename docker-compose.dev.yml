@@ -1,6 +1,10 @@
 ---
 services:
     php:
+        build:
+            context: ./php/${PHP_CONTAINER_TYPE:-work}/${PHP_VERSION}
+            args:
+                NODE_VERSION: ${NODE_VERSION:-18.20.8}
         volumes:
             - ~/.ssh:/var/www/.ssh:ro
             - ~/.ssh:/root/.ssh:ro

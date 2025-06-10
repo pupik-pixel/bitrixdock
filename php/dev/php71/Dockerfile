@@ -25,8 +25,17 @@ RUN cd /usr/bin && \
     curl -L https://phpmd.org/static/latest/phpmd.phar -o phpmd && \
     chmod +x /usr/bin/phpmd
 
-# install nodejs npm bitrix/cli
-RUN apt-get update && apt-get -y --no-install-recommends install nodejs npm && npm install -g @bitrix/cli
+# install nvm nodejs npm yarn bitrix/cli
+ARG NODE_VERSION
+ENV NVM_DIR=/root/.nvm
+RUN cd /root && \
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+    bash -c "source $NVM_DIR/nvm.sh && nvm install ${NODE_VERSION} && nvm alias default $NODE_VERSION && \
+    nvm use default"
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+RUN npm install --global yarn
+RUN yarn global add @bitrix/cli
 
 # install git ssh nano vim htop
 RUN apt-get update && apt-get -y --no-install-recommends install git ssh nano vim htop
