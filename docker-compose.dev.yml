@@ -2,7 +2,7 @@
 services:
     php:
         build:
-            context: ./php/${PHP_CONTAINER_TYPE:-work}/${PHP_VERSION}
+            context: ./php/${PHP_CONTAINER_TYPE:-prod}/${PHP_VERSION}
             args:
                 NODE_VERSION: ${NODE_VERSION:-18.20.8}
         volumes:
