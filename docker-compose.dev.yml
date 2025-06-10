@@ -1,0 +1,49 @@
+---
+services:
+    php:
+        volumes:
+            - ~/.ssh:/var/www/.ssh:ro
+            - ~/.ssh:/root/.ssh:ro
+        extends:
+            file: docker-compose.work.yml
+            service: php
+    web_server:
+        extends:
+            file: docker-compose.work.yml
+            service: web_server
+    db:
+        volumes:
+            - ./backups:/root/backups:ro
+        extends:
+            file: docker-compose.work.yml
+            service: db
+    memcached:
+        extends:
+            file: docker-compose.work.yml
+            service: memcached
+    adminer:
+        extends:
+            file: docker-compose.work.yml
+            service: adminer
+    push-server-sub:
+        extends:
+            file: docker-compose.work.yml
+            service: push-server-sub
+    push-server-pub:
+        extends:
+            file: docker-compose.work.yml
+            service: push-server-pub
+    redis:
+        extends:
+            file: docker-compose.work.yml
+            service: redis
+
+volumes:
+    db:
+        driver: local
+
+networks:
+    bitrixdock:
+        ipam:
+            config:
+                - subnet: 172.18.0.0/24
