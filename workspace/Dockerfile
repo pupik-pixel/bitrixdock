@@ -29,6 +29,16 @@ WORKDIR "/var/www/bitrix"
 # necessary for vscode-server
 RUN chown www-data:www-data /var/www
 
+# install phpmd php-cs-fixer phpcbf
+RUN curl -L https://cs.symfony.com/download/php-cs-fixer-v3.phar -o /usr/bin/php-cs-fixer && \
+    chmod +x /usr/bin/php-cs-fixer && \
+    curl -L https://phpmd.org/static/latest/phpmd.phar -o /usr/bin/phpmd && \
+    chmod +x /usr/bin/phpmd && \
+    curl -L https://phars.phpcodesniffer.com/phpcs.phar -o /usr/bin/phpcs && \
+    chmod +x /usr/bin/phpcs && \
+    curl -L https://phars.phpcodesniffer.com/phpcbf.phar -o /usr/bin/phpcbf && \
+    chmod +x /usr/bin/phpcbf
+
 # install nodejs
 USER www-data
 ARG NODE_VERSION
@@ -51,6 +61,9 @@ RUN sh -c "$(curl -L https://github.com/deluan/zsh-in-docker/releases/download/v
     -p https://github.com/zsh-users/zsh-autosuggestions \    
     -p https://github.com/lukechilds/zsh-nvm \    
     -x
+RUN sed -i "s/export LANG='en_US.UTF-8'/export LANG='C.UTF-8'/g" ~/.zshrc && \
+    sed -i "s/export LANGUAGE='en_US:en'//g" ~/.zshrc && \
+    sed -i "s/export LC_ALL='en_US.UTF-8'//g" ~/.zshrc
 
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 

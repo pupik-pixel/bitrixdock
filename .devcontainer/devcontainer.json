@@ -1,0 +1,11 @@
+{
+    "name": "bitrixdock",
+    "dockerComposeFile": "../docker-compose.yml",
+    "remoteUser": "www-data",
+    "runServices": [
+        "workspace"
+    ],
+    "service": "workspace",
+    "workspaceFolder": "/var/www/bitrix",
+    "shutdownAction": "stopCompose"
+}
