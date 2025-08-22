@@ -98,6 +98,7 @@ services:
             - MODE=sub
         depends_on:
             - redis
+        restart: unless-stopped
 
     push-server-pub:
         image: ikarpovich/bitrix-push-server
@@ -111,11 +112,13 @@ services:
             - MODE=pub
         depends_on:
             - redis
+        restart: unless-stopped
 
     redis:
         image: redis
         networks:
             - bitrixdock
+        restart: unless-stopped
 
 volumes:
     db:
