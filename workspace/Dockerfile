@@ -6,9 +6,18 @@ LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 ARG PHP_WORKSPACE_VERSION
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
+    php$PHP_WORKSPACE_VERSION-dev \
+    php$PHP_WORKSPACE_VERSION-gd \
+    php$PHP_WORKSPACE_VERSION-imagick \
+    php$PHP_WORKSPACE_VERSION-intl \
+    php$PHP_WORKSPACE_VERSION-interbase \
     php$PHP_WORKSPACE_VERSION-mbstring \
+    php$PHP_WORKSPACE_VERSION-mcrypt \
     php$PHP_WORKSPACE_VERSION-memcache \
+    php$PHP_WORKSPACE_VERSION-memcached \
     php$PHP_WORKSPACE_VERSION-mysql \
+    php$PHP_WORKSPACE_VERSION-opcache \
+    php$PHP_WORKSPACE_VERSION-soap \
     php$PHP_WORKSPACE_VERSION-tokenizer \
     php$PHP_WORKSPACE_VERSION-xml \
     php$PHP_WORKSPACE_VERSION-zip \
