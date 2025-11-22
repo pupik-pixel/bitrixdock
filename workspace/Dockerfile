@@ -36,7 +36,8 @@ RUN usermod -u 1000 www-data
 WORKDIR "/var/www/bitrix"
 
 # necessary for vscode-server
-RUN chown www-data:www-data /var/www
+RUN mkdir -p /var/www/.vscode-server
+RUN chown -R www-data:www-data /var/www
 
 # install phpmd php-cs-fixer phpcbf
 RUN curl -L https://cs.symfony.com/download/php-cs-fixer-v3.phar -o /usr/bin/php-cs-fixer && \
