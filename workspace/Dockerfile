@@ -1,5 +1,38 @@
+# change PHPDockerIO to custom build
+FROM ubuntu:jammy AS cli
+
+# Fixes some weird terminal issues such as broken clear / CTRL+L
+ENV TERM=linux
+
+# Ensure apt doesn't ask questions when installing stuff
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Ondrej repos for Ubuntu jammy, PHP, composer and selected extensions - better selection than
+# the distro's packages
 ARG PHP_WORKSPACE_VERSION
-FROM phpdockerio/php:$PHP_WORKSPACE_VERSION-cli
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends gnupg \
+    && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ondrej-php.list \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
+    && apt-get update \
+    && apt-get -y --no-install-recommends install \
+    ca-certificates \
+    curl \
+    unzip \
+    php$PHP_WORKSPACE_VERSION-apcu \
+    php$PHP_WORKSPACE_VERSION-cli \
+    php$PHP_WORKSPACE_VERSION-curl \
+    php$PHP_WORKSPACE_VERSION-mbstring \
+    php$PHP_WORKSPACE_VERSION-opcache \
+    php$PHP_WORKSPACE_VERSION-readline \
+    php$PHP_WORKSPACE_VERSION-xml \
+    php$PHP_WORKSPACE_VERSION-zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* ~/.composer
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+CMD ["php", "-a"]
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
@@ -11,16 +44,12 @@ RUN apt-get update \
     php$PHP_WORKSPACE_VERSION-imagick \
     php$PHP_WORKSPACE_VERSION-intl \
     php$PHP_WORKSPACE_VERSION-interbase \
-    php$PHP_WORKSPACE_VERSION-mbstring \
     php$PHP_WORKSPACE_VERSION-mcrypt \
     php$PHP_WORKSPACE_VERSION-memcache \
     php$PHP_WORKSPACE_VERSION-memcached \
     php$PHP_WORKSPACE_VERSION-mysql \
-    php$PHP_WORKSPACE_VERSION-opcache \
     php$PHP_WORKSPACE_VERSION-soap \
     php$PHP_WORKSPACE_VERSION-tokenizer \
-    php$PHP_WORKSPACE_VERSION-xml \
-    php$PHP_WORKSPACE_VERSION-zip \
     git \
     iputils-ping \
     mc \
