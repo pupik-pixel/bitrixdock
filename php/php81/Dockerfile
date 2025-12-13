@@ -16,7 +16,12 @@ RUN apt-get update \
     php8.1-opcache \
     php8.1-soap \
     php8.1-zip \
+    php8.1-xdebug \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+RUN curl -LkSso /usr/bin/mhsendmail \
+    'https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64' && \
+    chmod 0755 /usr/bin/mhsendmail
 
 COPY ./php.ini /etc/php/8.1/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/8.1/cli/conf.d/90-php.ini
