@@ -30,7 +30,8 @@ RUN apt-get update \
     && pecl install memcache-8.0 \
     && pecl install memcached-3.2.0 \
     && pecl install imagick \
-    && docker-php-ext-enable memcache memcached imagick \
+    && pecl install xdebug \
+    && docker-php-ext-enable memcache memcached imagick xdebug \
     && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libjpeg62-turbo \
@@ -51,6 +52,12 @@ RUN apt-get update \
     libmagickwand-dev \
     zlib1g-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+RUN curl -LkSso /usr/bin/mhsendmail \
+    'https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64' && \
+    chmod 0755 /usr/bin/mhsendmail
 
 COPY ./php.ini /usr/local/etc/php/conf.d/90-php.ini
 
