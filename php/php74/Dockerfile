@@ -1,4 +1,4 @@
-`FROM php:7.4-fpm
+FROM php:7.4-fpm
 
 LABEL org.opencontainers.image.source="https://github.com/bitrixdock/bitrixdock"
 
@@ -64,7 +64,6 @@ RUN mkdir -p /etc/php/7.4/fpm /etc/php/7.4/cli \
     && ln -s /usr/local/etc/php/conf.d /etc/php/7.4/fpm/conf.d \
     && ln -s /usr/local/etc/php/conf.d /etc/php/7.4/cli/conf.d \
     && ln -s /usr/local/etc/php-fpm.d /etc/php/7.4/fpm/pool.d
-# DO NOT install php7.4-xdebug package for site running in production! It will slow it down significantly.
 
 RUN curl -LkSso /usr/bin/mhsendmail \
     'https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64' && \

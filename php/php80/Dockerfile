@@ -36,7 +36,7 @@ RUN apt-get update \
     && pecl install /tmp/imagick.tgz \
     && pecl install /tmp/xdebug.tgz \
     && rm -f /tmp/memcache.tgz /tmp/memcached.tgz /tmp/imagick.tgz /tmp/xdebug.tgz \
-    && docker-php-ext-enable memcache memcached imagick \
+    && docker-php-ext-enable memcache memcached imagick xdebug \
     && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libjpeg62-turbo \
