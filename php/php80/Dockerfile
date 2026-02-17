@@ -27,11 +27,16 @@ RUN apt-get update \
     soap \
     zip \
     opcache \
-    && pecl install memcache-8.0 \
-    && pecl install memcached-3.2.0 \
-    && pecl install imagick \
-    && pecl install xdebug \
-    && docker-php-ext-enable memcache memcached imagick xdebug \
+    && curl -fSL -o /tmp/memcache.tgz https://pecl.php.net/get/memcache-8.2.tgz \
+    && curl -fSL -o /tmp/memcached.tgz https://pecl.php.net/get/memcached-3.4.0.tgz \
+    && curl -fSL -o /tmp/imagick.tgz https://pecl.php.net/get/imagick-3.8.1.tgz \
+    && curl -fSL -o /tmp/xdebug.tgz https://pecl.php.net/get/xdebug-3.5.0.tgz \
+    && pecl install /tmp/memcache.tgz \
+    && pecl install /tmp/memcached.tgz \
+    && pecl install /tmp/imagick.tgz \
+    && pecl install /tmp/xdebug.tgz \
+    && rm -f /tmp/memcache.tgz /tmp/memcached.tgz /tmp/imagick.tgz /tmp/xdebug.tgz \
+    && docker-php-ext-enable memcache memcached imagick \
     && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libjpeg62-turbo \
