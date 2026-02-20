@@ -31,12 +31,14 @@ RUN apt-get update \
     && curl -fSL -o /tmp/memcached.tgz https://pecl.php.net/get/memcached-3.4.0.tgz \
     && curl -fSL -o /tmp/imagick.tgz https://pecl.php.net/get/imagick-3.8.1.tgz \
     && curl -fSL -o /tmp/xdebug.tgz https://pecl.php.net/get/xdebug-3.5.0.tgz \
+    && curl -fSL -o /tmp/igbinary.tgz https://pecl.php.net/get/igbinary-3.2.16.tgz \
     && pecl install /tmp/memcache.tgz \
     && pecl install /tmp/memcached.tgz \
     && pecl install /tmp/imagick.tgz \
     && pecl install /tmp/xdebug.tgz \
-    && rm -f /tmp/memcache.tgz /tmp/memcached.tgz /tmp/imagick.tgz /tmp/xdebug.tgz \
-    && docker-php-ext-enable memcache memcached imagick xdebug \
+    && pecl install /tmp/igbinary.tgz \
+    && rm -f /tmp/memcache.tgz /tmp/memcached.tgz /tmp/imagick.tgz /tmp/xdebug.tgz /tmp/igbinary.tgz \
+    && docker-php-ext-enable memcache memcached imagick xdebug igbinary \
     && apt-get install -y --no-install-recommends \
     libfreetype6 \
     libjpeg62-turbo \
