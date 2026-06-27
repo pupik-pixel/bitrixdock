@@ -47,14 +47,20 @@ services:
         environment:
             TZ: Europe/Moscow
         restart: unless-stopped
+        links:
+            - php
+        depends_on:
+            - php
         hostname: bitrix.local
 
 
     db:
-        build: ./${DB_SERVER_TYPE}
-        platform: linux/amd64
+        build:
+            context: ./${DB_SERVER_TYPE:-percona}
+            args:
+                MYSQL_VERSION: ${MYSQL_VERSION:-8.4}
         volumes:
-            - ./${DB_SERVER_TYPE}/init:/docker-entrypoint-initdb.d
+            - ./${DB_SERVER_TYPE:-percona}/init:/docker-entrypoint-initdb.d
             - ./logs/db:/var/log/mysql
             - /etc/localtime:/etc/localtime/:ro
             - db:/var/lib/mysql
