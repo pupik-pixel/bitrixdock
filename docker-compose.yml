@@ -110,6 +110,8 @@ services:
         depends_on:
             - redis
         restart: unless-stopped
+        profiles:
+            - push
 
     push-server-pub:
         image: ikarpovich/bitrix-push-server
@@ -124,12 +126,16 @@ services:
         depends_on:
             - redis
         restart: unless-stopped
+        profiles:
+            - push
 
     redis:
         image: redis
         networks:
             - bitrixdock
         restart: unless-stopped
+        profiles:
+            - push
 
 volumes:
     db:
