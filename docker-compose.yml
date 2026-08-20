@@ -29,6 +29,7 @@ services:
         tty: true
         networks:
             bitrixdock:
+            external_bitrixdock:
         restart: unless-stopped
         profiles:
             - workspace
@@ -44,6 +45,7 @@ services:
             - '${INTERFACE}:443:443'
         networks:
             bitrixdock:
+            external_bitrixdock:
         environment:
             TZ: Europe/Moscow
         restart: unless-stopped
@@ -52,7 +54,6 @@ services:
         depends_on:
             - php
         hostname: bitrix.local
-
 
     db:
         build:
@@ -143,4 +144,7 @@ volumes:
 
 networks:
     bitrixdock:
+        driver: bridge
+        internal: true
+    external_bitrixdock:
         driver: bridge
