@@ -104,6 +104,13 @@ RUN sed -i "s/export LANG='en_US.UTF-8'/export LANG='C.UTF-8'/g" ~/.zshrc && \
     sed -i "s/export LANGUAGE='en_US:en'//g" ~/.zshrc && \
     sed -i "s/export LC_ALL='en_US.UTF-8'//g" ~/.zshrc
 
+# install opencode
+RUN curl -fsSL https://opencode.ai/v2/install | bash
+USER root
+RUN ln -s /var/www/.opencode/bin/opencode /usr/bin/opencode
+USER www-data
+COPY ./opencode.json /var/www/.config/opencode/opencode.json
+
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server
