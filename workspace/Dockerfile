@@ -111,6 +111,10 @@ RUN ln -s /var/www/.opencode/bin/opencode /usr/bin/opencode
 USER www-data
 COPY ./opencode.json /var/www/.config/opencode/opencode.json
 
+# install pi
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+COPY ./models.json /var/www/.pi/agent/models.json
+
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
 # necessary for vscode-server

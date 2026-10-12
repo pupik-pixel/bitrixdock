@@ -1,0 +1,15 @@
+{
+    "providers": {
+        "ollama": {
+            "baseUrl": "http://your_host_ip:11434/v1",
+                "apiKey": "ollama",
+                "api": "openai-completions",
+                "models": [
+                    {
+                        "id": "model_id",
+                        "name": "model_name"
+                    }
+                ]
+        }
+    }
+}
