@@ -1,0 +1,15 @@
+{
+    "$schema": "https://pi.dev/schemas/models.schema.json",
+    "providers": {
+        "ollama": {
+            "baseUrl": "http://your_host_ip:11434/v1",
+            "api": "openai-completions",
+            "apiKey": "ollama",
+            "models": [
+                {
+                    "id": "model_name"
+                }
+            ]
+        }
+    }
+}
