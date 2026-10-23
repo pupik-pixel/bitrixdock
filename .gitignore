@@ -6,4 +6,5 @@ logs
 .devcontainer/devcontainer.json
 workspace/models.json
 workspace/opencode.json
+workspace/settings.json
 www/

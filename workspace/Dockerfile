@@ -114,6 +114,7 @@ RUN sed -i "s/export LANG='en_US.UTF-8'/export LANG='C.UTF-8'/g" ~/.zshrc && \
 # install pi agent (optionally)
 # RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 # COPY ./models.json /var/www/.pi/agent/models.json
+# COPY ./settings.json /var/www/.pi/agent/settings.json
 
 COPY ./php.ini /etc/php/$PHP_WORKSPACE_VERSION/cli/conf.d/90-custom.ini
 
