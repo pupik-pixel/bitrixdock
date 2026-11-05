@@ -8,7 +8,7 @@
             "models": [
                 {
                     "id": "model_name",
-                    "contextWindow": 131072
+                    "contextWindow": 32768
                 }
             ]
         },
